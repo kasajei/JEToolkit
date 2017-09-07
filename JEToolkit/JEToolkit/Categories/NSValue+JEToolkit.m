@@ -30,7 +30,7 @@
 
 @interface _JEWeakValue : NSValue
 
-@property (nonatomic, weak, readonly) id weakObject;
+@property (nonatomic, weak, readonly) id je_weakObject;
 
 - (instancetype)initWithWeakObject:(id)weakObject;
 
@@ -49,7 +49,7 @@
         return nil;
     }
     
-    _weakObject = weakObject;
+    _je_weakObject = weakObject;
     return self;
 }
 
@@ -58,7 +58,7 @@
 
 - (void)getValue:(void *)value {
     
-    id __autoreleasing weakObject = self.weakObject;
+    id __autoreleasing weakObject = self.je_weakObject;
     (*(id __autoreleasing *)value) = weakObject;
 }
 
@@ -69,7 +69,7 @@
 
 - (BOOL)isEqualToValue:(NSValue *)value {
     
-    return [[NSValue valueWithNonretainedObject:self.weakObject] isEqualToValue:value];
+    return [[NSValue valueWithNonretainedObject:self.je_weakObject] isEqualToValue:value];
 }
 
 @end
@@ -80,16 +80,16 @@
 
 #pragma mark - Public
 
-+ (NSValue *)valueWithWeakObject:(id)weakObject {
++ (NSValue *)je_valueWithWeakObject:(id)weakObject {
     
     return [[_JEWeakValue alloc] initWithWeakObject:weakObject];
 }
 
-- (id)weakObjectValue {
+- (id)je_weakObjectValue {
     
     if ([self isKindOfClass:[_JEWeakValue class]])
     {
-        return ((_JEWeakValue *)self).weakObject;
+        return ((_JEWeakValue *)self).je_weakObject;
     }
     return nil;
 }
